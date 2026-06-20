@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Arjun Mehta — Graphic Designer & Brand Strategist",
+  title: "Eckintosh — Graphic Designer & Brand Strategist",
   description:
     "Freelance graphic designer crafting logos, brand systems, brochures and digital experiences for startups and studios across the globe.",
   keywords: [
@@ -14,9 +14,9 @@ export const metadata: Metadata = {
     "social media design",
     "freelance designer",
   ],
-  authors: [{ name: "Arjun Mehta" }],
+  authors: [{ name: "Eckintosh" }],
   openGraph: {
-    title: "Arjun Mehta — Graphic Designer",
+    title: "Eckintosh — Graphic Designer",
     description:
       "Designing brands that feel alive. Freelance graphic designer with 8+ years of experience.",
     type: "website",

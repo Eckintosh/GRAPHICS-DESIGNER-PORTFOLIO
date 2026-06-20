@@ -52,7 +52,7 @@ export function Hero() {
           </h1>
 
           <p className="max-w-2xl text-lg text-slate-600 dark:text-slate-400 sm:text-xl">
-            I'm <span className="text-slate-900 dark:text-white">Arjun Mehta</span> — a freelance
+            I'm <span className="text-slate-900 dark:text-white">Eckintosh</span> — a freelance
             graphic designer crafting logos, brand systems, brochures and
             digital experiences for startups and studios across the globe.
           </p>

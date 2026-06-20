@@ -41,7 +41,7 @@ export function Navbar({ onAdminClick, isAdmin, theme, onToggleTheme }: NavbarPr
             <span className="font-black tracking-tighter">A</span>
           </span>
           <span className="text-sm font-semibold tracking-wide text-slate-900 dark:text-white">
-            Arjun<span className="text-amber-500">.</span>
+            Eckintosh<span className="text-amber-500">.</span>
           </span>
         </a>
 
