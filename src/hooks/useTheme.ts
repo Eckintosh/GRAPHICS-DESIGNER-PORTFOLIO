@@ -3,20 +3,24 @@ import { useCallback, useEffect, useState } from "react";
 export type Theme = "light" | "dark";
 const STORAGE_KEY = "portfolio.theme.v1";
 
-function getInitialTheme(): Theme {
-  if (typeof window === "undefined") return "light";
-  try {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (stored === "light" || stored === "dark") return stored;
-  } catch {
-    /* ignore */
-  }
-  return "light"; // default to light per requirement
-}
-
 export function useTheme() {
-  const [theme, setThemeState] = useState<Theme>(() => getInitialTheme());
+  // Always start with "light" so SSR and first client render match exactly.
+  // The stored preference is applied in an effect (client-only).
+  const [theme, setThemeState] = useState<Theme>("light");
 
+  // On mount: read stored preference and correct the state (client-only).
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(STORAGE_KEY);
+      if (stored === "light" || stored === "dark") {
+        setThemeState(stored);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  // Whenever theme changes: apply the class and persist.
   useEffect(() => {
     const root = document.documentElement;
     if (theme === "dark") root.classList.add("dark");

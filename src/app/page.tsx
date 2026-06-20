@@ -6,6 +6,7 @@ import { Hero } from "@/components/Hero";
 import { Portfolio } from "@/components/Portfolio";
 import { AdminPanel } from "@/components/AdminPanel";
 import { AdminToolbar } from "@/components/AdminToolbar";
+import { LoginModal } from "@/components/LoginModal";
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
@@ -13,12 +14,13 @@ import { useWorks } from "@/hooks/useWorks";
 import { useTheme } from "@/hooks/useTheme";
 import type { Work } from "@/types";
 
-const ADMIN_PIN = "1234";
+
 
 export default function HomePage() {
   const { works, addWork, updateWork, removeWork, resetWorks } = useWorks();
   const { theme, toggle } = useTheme();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [editing, setEditing] = useState<Work | null>(null);
 
@@ -27,14 +29,7 @@ export default function HomePage() {
       setIsAdmin(false);
       return;
     }
-    const pin = prompt(
-      "Enter admin PIN to manage portfolio.\n\n(Hint for demo: 1234)"
-    );
-    if (pin === ADMIN_PIN) {
-      setIsAdmin(true);
-    } else if (pin !== null) {
-      alert("Incorrect PIN.");
-    }
+    setLoginOpen(true);
   };
 
   const openAdd = () => {
@@ -104,6 +99,12 @@ export default function HomePage() {
         onClose={() => setPanelOpen(false)}
         onSave={handleSave}
         onReset={resetWorks}
+      />
+
+      <LoginModal
+        open={loginOpen}
+        onClose={() => setLoginOpen(false)}
+        onSuccess={() => setIsAdmin(true)}
       />
     </div>
   );
