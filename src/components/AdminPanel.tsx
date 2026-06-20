@@ -75,19 +75,43 @@ export function AdminPanel({ open, editing, onClose, onSave, onReset }: AdminPan
   };
 
   const handleFile = async (file: File) => {
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+    const preset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
+    if (!cloudName || !preset) {
+      alert(
+        `Cloudinary configuration missing.\n\n` +
+        `Please ensure NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME and NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET are set in your environment variables.`
+      );
+      return;
+    }
+
     setUploading(true);
     try {
       const fd = new FormData();
       fd.append("file", file);
+      fd.append("upload_preset", preset);
 
-      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        { method: "POST", body: fd }
+      );
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data?.error ?? "Upload failed");
+      if (!res.ok) {
+        throw new Error(data?.error?.message ?? "Upload failed");
+      }
       setImage(data.secure_url as string);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert("Image upload failed. Please try again or paste a URL.");
+      alert(
+        `Image upload failed: ${err.message || err}\n\n` +
+        `Please verify that:\n` +
+        `1. The preset "${preset}" exists and is set to UNSIGNED in your Cloudinary Dashboard (Settings > Upload > Upload presets).\n` +
+        `2. Your cloud name "${cloudName}" is correct.\n` +
+        `3. You have set these environment variables on Vercel (and redeployed).\n` +
+        `4. Your network/ad-blocker is not blocking api.cloudinary.com.`
+      );
     } finally {
       setUploading(false);
     }
