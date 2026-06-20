@@ -10,9 +10,6 @@ export function Footer() {
         </div>
         <div className="flex items-center gap-5">
           <a href="#top" className="hover:text-slate-900 dark:hover:text-white">Back to top ↑</a>
-          <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-slate-900 dark:hover:text-white">
-            Privacy
-          </a>
         </div>
       </div>
     </footer>
