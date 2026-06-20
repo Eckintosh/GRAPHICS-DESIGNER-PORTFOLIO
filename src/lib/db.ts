@@ -18,8 +18,13 @@ export async function ensureSchema() {
       year        TEXT,
       description TEXT,
       tags        TEXT[],
-      created_at  BIGINT  NOT NULL
+      created_at  BIGINT  NOT NULL,
+      images      TEXT[]
     )
+  `;
+  // Ensure the column exists on existing tables
+  await sql`
+    ALTER TABLE works ADD COLUMN IF NOT EXISTS images TEXT[]
   `;
 }
 
@@ -36,5 +41,6 @@ export function rowToWork(row: Record<string, any>) {
     description: row.description ?? undefined,
     tags: Array.isArray(row.tags) ? (row.tags as string[]) : [],
     createdAt: Number(row.created_at),
+    images: Array.isArray(row.images) ? (row.images as string[]) : [],
   };
 }

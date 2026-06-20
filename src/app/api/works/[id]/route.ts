@@ -9,7 +9,7 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await req.json();
-    const { title, category, image, client, year, description, tags } = body;
+    const { title, category, image, client, year, description, tags, images } = body;
 
     const rows = await sql`
       UPDATE works SET
@@ -19,7 +19,8 @@ export async function PATCH(
         client      = ${client      ?? null},
         year        = ${year        ?? null},
         description = ${description ?? null},
-        tags        = ${tags        ?? null}
+        tags        = ${tags        ?? null},
+        images      = COALESCE(${images      ?? null}, images)
       WHERE id = ${id}
       RETURNING *
     `;

@@ -11,11 +11,11 @@ export async function POST() {
 
     for (const w of SEED_WORKS) {
       await sql`
-        INSERT INTO works (id, title, category, image, client, year, description, tags, created_at)
+        INSERT INTO works (id, title, category, image, client, year, description, tags, created_at, images)
         VALUES (
           ${w.id}, ${w.title}, ${w.category}, ${w.image},
           ${w.client ?? null}, ${w.year ?? null}, ${w.description ?? null},
-          ${w.tags ?? []}, ${w.createdAt}
+          ${w.tags ?? []}, ${w.createdAt}, ${w.images ?? []}
         )
       `;
     }

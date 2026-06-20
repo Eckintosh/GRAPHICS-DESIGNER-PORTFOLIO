@@ -18,4 +18,5 @@ export interface Work {
   description?: string;
   tags?: string[];
   createdAt: number;
+  images?: string[];
 }

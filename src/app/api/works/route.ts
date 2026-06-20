@@ -15,11 +15,11 @@ export async function GET() {
     if (rows.length === 0) {
       for (const w of SEED_WORKS) {
         await sql`
-          INSERT INTO works (id, title, category, image, client, year, description, tags, created_at)
+          INSERT INTO works (id, title, category, image, client, year, description, tags, created_at, images)
           VALUES (
             ${w.id}, ${w.title}, ${w.category}, ${w.image},
             ${w.client ?? null}, ${w.year ?? null}, ${w.description ?? null},
-            ${w.tags ?? []}, ${w.createdAt}
+            ${w.tags ?? []}, ${w.createdAt}, ${w.images ?? []}
           )
           ON CONFLICT (id) DO NOTHING
         `;
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     await ensureSchema();
 
     const body = await req.json();
-    const { title, category, image, client, year, description, tags } = body;
+    const { title, category, image, client, year, description, tags, images } = body;
 
     if (!title || !category || !image) {
       return NextResponse.json({ error: "title, category, and image are required." }, { status: 400 });
@@ -52,16 +52,16 @@ export async function POST(req: Request) {
     const createdAt = Date.now();
 
     await sql`
-      INSERT INTO works (id, title, category, image, client, year, description, tags, created_at)
+      INSERT INTO works (id, title, category, image, client, year, description, tags, created_at, images)
       VALUES (
         ${id}, ${title}, ${category}, ${image},
         ${client ?? null}, ${year ?? null}, ${description ?? null},
-        ${tags ?? []}, ${createdAt}
+        ${tags ?? []}, ${createdAt}, ${images ?? []}
       )
     `;
 
     return NextResponse.json(
-      rowToWork({ id, title, category, image, client, year, description, tags, created_at: createdAt }),
+      rowToWork({ id, title, category, image, client, year, description, tags, created_at: createdAt, images }),
       { status: 201 }
     );
   } catch (err) {
