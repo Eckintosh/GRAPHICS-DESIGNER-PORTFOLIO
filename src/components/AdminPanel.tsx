@@ -30,6 +30,7 @@ export function AdminPanel({ open, editing, onClose, onSave, onReset }: AdminPan
   const [year, setYear] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -73,10 +74,27 @@ export function AdminPanel({ open, editing, onClose, onSave, onReset }: AdminPan
     onClose();
   };
 
-  const handleFile = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = () => setImage(String(reader.result ?? ""));
-    reader.readAsDataURL(file);
+  const handleFile = async (file: File) => {
+    setUploading(true);
+    try {
+      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+      const preset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("upload_preset", preset!);
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        { method: "POST", body: fd }
+      );
+      if (!res.ok) throw new Error("Cloudinary upload failed");
+      const data = await res.json();
+      setImage(data.secure_url as string);
+    } catch (err) {
+      console.error(err);
+      alert("Image upload failed. Please try again or paste a URL.");
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -98,7 +116,7 @@ export function AdminPanel({ open, editing, onClose, onSave, onReset }: AdminPan
               {editing ? "Edit Project" : "Add New Project"}
             </h3>
             <p className="mt-1 text-sm text-slate-400">
-              Projects are saved locally in your browser.
+              Projects are saved to your database.
             </p>
           </div>
           <button
@@ -166,12 +184,18 @@ export function AdminPanel({ open, editing, onClose, onSave, onReset }: AdminPan
                   placeholder="https://… or upload below"
                   className={inputCls}
                 />
-                <label className="flex cursor-pointer items-center justify-center whitespace-nowrap rounded-lg border border-white/10 bg-white/5 px-4 text-sm text-slate-200 transition hover:bg-white/10">
-                  Upload
+                <label className={`flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-white/10 bg-white/5 px-4 text-sm text-slate-200 transition hover:bg-white/10 ${uploading ? "opacity-60 pointer-events-none" : ""}`}>
+                  {uploading ? (
+                    <>
+                      <svg className="animate-spin" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="12" cy="12" r="10" strokeOpacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" /></svg>
+                      Uploading…
+                    </>
+                  ) : "Upload"}
                   <input
                     type="file"
                     accept="image/*"
                     className="hidden"
+                    disabled={uploading}
                     onChange={(e) => {
                       const f = e.target.files?.[0];
                       if (f) handleFile(f);

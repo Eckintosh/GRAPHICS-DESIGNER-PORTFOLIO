@@ -17,7 +17,7 @@ import type { Work } from "@/types";
 
 
 export default function HomePage() {
-  const { works, addWork, updateWork, removeWork, resetWorks } = useWorks();
+  const { works, loading, addWork, updateWork, removeWork, resetWorks } = useWorks();
   const { theme, toggle } = useTheme();
   const [isAdmin, setIsAdmin] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
@@ -79,6 +79,7 @@ export default function HomePage() {
         <Hero />
         <Portfolio
           works={works}
+          loading={loading}
           isAdmin={isAdmin}
           onEdit={openEdit}
           onDelete={(id) => {

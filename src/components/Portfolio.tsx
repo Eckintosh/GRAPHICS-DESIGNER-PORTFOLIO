@@ -18,12 +18,13 @@ const CATEGORIES: Category[] = [
 
 interface PortfolioProps {
   works: Work[];
+  loading?: boolean;
   isAdmin: boolean;
   onEdit: (w: Work) => void;
   onDelete: (id: string) => void;
 }
 
-export function Portfolio({ works, isAdmin, onEdit, onDelete }: PortfolioProps) {
+export function Portfolio({ works, loading = false, isAdmin, onEdit, onDelete }: PortfolioProps) {
   const [active, setActive] = useState<Category>("All");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Work | null>(null);
@@ -125,7 +126,24 @@ export function Portfolio({ works, isAdmin, onEdit, onDelete }: PortfolioProps) 
 
       {/* Grid */}
       <div className="mt-8">
-        {filtered.length === 0 ? (
+        {loading ? (
+          /* Skeleton loader */
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="animate-pulse overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-white/[0.04]"
+              >
+                <div className="aspect-[4/3] bg-slate-200 dark:bg-white/10" />
+                <div className="p-4">
+                  <div className="mb-2 h-3 w-1/3 rounded-full bg-slate-200 dark:bg-white/10" />
+                  <div className="h-4 w-3/4 rounded-full bg-slate-200 dark:bg-white/10" />
+                  <div className="mt-2 h-3 w-1/2 rounded-full bg-slate-200 dark:bg-white/10" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 py-24 text-center dark:border-white/10 dark:bg-white/[0.02]">
             <p className="text-slate-500 dark:text-slate-400">
               No projects found.{" "}
