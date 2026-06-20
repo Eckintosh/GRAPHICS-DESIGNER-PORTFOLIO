@@ -37,9 +37,7 @@ export function Navbar({ onAdminClick, isAdmin, theme, onToggleTheme }: NavbarPr
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
         <a href="#top" className="group flex items-center gap-2.5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 shadow-lg shadow-orange-500/20 transition-transform group-hover:rotate-6">
-            <span className="font-black tracking-tighter">A</span>
-          </span>
+          
           <span className="text-sm font-semibold tracking-wide text-slate-900 dark:text-white">
             Eckintosh<span className="text-amber-500">.</span>
           </span>
