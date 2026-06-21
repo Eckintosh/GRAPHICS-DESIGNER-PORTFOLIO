@@ -11,13 +11,14 @@ export function About() {
   ];
 
   const tools = [
+    "Adobe Photoshop",
     "Figma",
+    "CorelDraw",
     "Adobe Illustrator",
-    "Photoshop",
-    "InDesign",
-    "After Effects",
+    "Adobe XD",
     "Blender",
-    "Procreate",
+    "Canva",
+    "ProtoPie"
   ];
 
   return (
@@ -34,15 +35,12 @@ export function About() {
           </h2>
           <div className="mt-6 space-y-4 text-slate-600 dark:text-slate-400">
             <p>
-              Based in Bangalore, I've spent the last 8 years helping startups
+              Based in Accra,Ghana, hold BSc. in Computer Science and Engineering. 
+              I've spent the last 10 years designing for institutions
               and established brands find their voice through thoughtful visual
-              systems. I believe great design is invisible — it simply works.
+              representation. I believe great design is invisible — it simply works.
             </p>
-            <p>
-              When I'm not pushing pixels, you'll find me sketching in coffee
-              shops, collecting vintage design books, or hiking the Western
-              Ghats.
-            </p>
+            
           </div>
 
           <div className="mt-8 flex flex-wrap gap-2">

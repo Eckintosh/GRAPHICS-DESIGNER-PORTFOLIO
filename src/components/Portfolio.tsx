@@ -1,6 +1,4 @@
-"use client";
-
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Category, Work } from "@/types";
 import { WorkCard } from "./WorkCard";
 import { Lightbox } from "./Lightbox";
@@ -28,6 +26,11 @@ export function Portfolio({ works, loading = false, isAdmin, onEdit, onDelete }:
   const [active, setActive] = useState<Category>("All");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Work | null>(null);
+  const [showAll, setShowAll] = useState(false);
+
+  useEffect(() => {
+    setShowAll(false);
+  }, [active, query]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -43,6 +46,10 @@ export function Portfolio({ works, loading = false, isAdmin, onEdit, onDelete }:
       })
       .sort((a, b) => b.createdAt - a.createdAt);
   }, [works, active, query]);
+
+  const displayedWorks = useMemo(() => {
+    return showAll ? filtered : filtered.slice(0, 20);
+  }, [filtered, showAll]);
 
   const counts = useMemo(() => {
     const map: Record<string, number> = { All: works.length };
@@ -61,7 +68,7 @@ export function Portfolio({ works, loading = false, isAdmin, onEdit, onDelete }:
             A decade of brand stories.
           </h2>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
-            Filter by discipline, search by keyword, or scroll through the
+            Filter by category, search by keyword, or scroll through the
             archive. Click any piece for project details.
           </p>
         </div>

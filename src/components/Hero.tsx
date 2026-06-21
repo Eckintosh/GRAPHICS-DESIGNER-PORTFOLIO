@@ -82,8 +82,8 @@ export function Hero() {
             {/* Stats */}
             <div className="mt-6 grid w-full grid-cols-3 gap-6 border-t border-slate-200 pt-8 dark:border-white/10 sm:gap-8">
               {[
-                { k: "200+", v: "Projects delivered" },
-                { k: "50+", v: "Happy clients" },
+                { k: "250+", v: "Projects delivered" },
+                { k: "100+", v: "Happy clients" },
                 { k: "10yrs", v: "Experience" },
               ].map((s) => (
                 <div key={s.v}>
