@@ -43,8 +43,8 @@ export function Contact() {
                 </svg>
               }
               label="Email"
-              value="hello@arjun.design"
-              href="mailto:hello@arjun.design"
+              value="eckintoshmarkintosh@gmail.com"
+              href="mailto:eckintoshmarkintosh@gmail.com"
             />
             <ContactItem
               icon={
@@ -54,7 +54,7 @@ export function Contact() {
                 </svg>
               }
               label="Based in"
-              value="Bangalore, India · Working globally"
+              value="Accra, Ghana"
             />
             <ContactItem
               icon={
@@ -68,7 +68,7 @@ export function Contact() {
             />
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-2">
+          {/* <div className="mt-10 flex flex-wrap gap-2">
             {["Dribbble", "Behance", "Instagram", "LinkedIn"].map((s) => (
               <a
                 key={s}
@@ -79,7 +79,7 @@ export function Contact() {
                 {s}
               </a>
             ))}
-          </div>
+          </div> */}
         </div>
 
         <form
@@ -93,7 +93,7 @@ export function Contact() {
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className={inputCls}
-                placeholder="Jane Doe"
+                placeholder="Your Name"
               />
             </Field>
             <Field label="Email">
@@ -103,7 +103,7 @@ export function Contact() {
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className={inputCls}
-                placeholder="jane@company.com"
+                placeholder="example@company.com"
               />
             </Field>
             <Field label="Tell me about your project">
@@ -138,10 +138,6 @@ export function Contact() {
                 </>
               )}
             </button>
-
-            <p className="text-center text-xs text-slate-500">
-              Demo form — submissions are not actually sent.
-            </p>
           </div>
         </form>
       </div>

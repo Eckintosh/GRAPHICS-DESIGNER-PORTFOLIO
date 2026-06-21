@@ -2,11 +2,11 @@
 
 export function About() {
   const skills = [
-    { name: "Brand Identity", level: 95 },
-    { name: "Logo Design", level: 98 },
-    { name: "Print & Editorial", level: 90 },
-    { name: "Packaging", level: 88 },
-    { name: "Digital & Social", level: 92 },
+    { name: "Digital & Social", level: 98 },
+      { name: "Print & Editorial", level: 95 },
+    { name: "Brand Identity", level: 90 },
+    { name: "Logo Design", level: 90 },
+    { name: "Packaging", level: 85 },
     { name: "Illustration", level: 80 },
   ];
 
@@ -76,23 +76,6 @@ export function About() {
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {[
-              { t: "2018", s: "Freelance launch" },
-              { t: "2020", s: "Awwwards HM" },
-              { t: "2022", s: "Type Directors Club" },
-              { t: "2024", s: "Brand New feature" },
-            ].map((m) => (
-              <div
-                key={m.t}
-                className="rounded-xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/[0.02]"
-              >
-                <div className="text-xl font-bold text-amber-600 dark:text-amber-400">{m.t}</div>
-                <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">{m.s}</div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
