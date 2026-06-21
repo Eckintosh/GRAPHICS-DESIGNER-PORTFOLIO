@@ -35,7 +35,7 @@ export function About() {
           </h2>
           <div className="mt-6 space-y-4 text-slate-600 dark:text-slate-400">
             <p>
-              Based in Accra,Ghana, hold BSc. in Computer Science and Engineering. 
+              Based in Accra,Ghana, holds BSc. in Computer Science and Engineering. 
               I've spent the last 10 years designing for institutions
               and established brands find their voice through thoughtful visual
               representation. I believe great design is invisible — it simply works.
