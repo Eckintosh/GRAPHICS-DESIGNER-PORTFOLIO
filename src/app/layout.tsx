@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Eckintosh — Graphic Designer",
     description:
-      "Designing brands that feel alive. Freelance graphic designer with 8+ years of experience.",
+      "Designing brands that feel alive. Graphic designer with 10 years of experience.",
     type: "website",
   },
 };

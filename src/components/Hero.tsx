@@ -11,7 +11,7 @@ export function Hero() {
       {/* Background glow */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-amber-400/25 blur-[120px] dark:bg-amber-500/20" />
-        <div className="absolute right-[-120px] top-40 h-[320px] w-[320px] rounded-full bg-rose-400/15 blur-[100px] dark:bg-fuchsia-500/10" />
+        <div className="absolute right-[-70px] top-40 h-[320px] w-[320px] rounded-full bg-rose-400/15 blur-[100px] dark:bg-fuchsia-500/10" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
