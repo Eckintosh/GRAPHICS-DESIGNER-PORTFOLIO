@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useMemo, useState } from "react";
 import type { Category, Work } from "@/types";
 import { WorkCard } from "./WorkCard";
@@ -158,19 +160,44 @@ export function Portfolio({ works, loading = false, isAdmin, onEdit, onDelete }:
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((w, i) => (
-              <WorkCard
-                key={w.id}
-                work={w}
-                index={i}
-                isAdmin={isAdmin}
-                onOpen={() => setSelected(w)}
-                onEdit={() => onEdit(w)}
-                onDelete={() => onDelete(w.id)}
-              />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {displayedWorks.map((w, i) => (
+                <WorkCard
+                  key={w.id}
+                  work={w}
+                  index={i}
+                  isAdmin={isAdmin}
+                  onOpen={() => setSelected(w)}
+                  onEdit={() => onEdit(w)}
+                  onDelete={() => onDelete(w.id)}
+                />
+              ))}
+            </div>
+
+            {filtered.length > 20 && (
+              <div className="mt-12 flex justify-center">
+                <button
+                  onClick={() => setShowAll(!showAll)}
+                  className="group inline-flex items-center gap-2 rounded-full border border-amber-500 bg-transparent px-8 py-3 text-sm font-semibold text-amber-600 transition hover:bg-amber-400 hover:text-slate-950 dark:border-amber-400/30 dark:text-amber-400 dark:hover:bg-amber-400 dark:hover:text-slate-950"
+                >
+                  <span>{showAll ? "Show Less" : `View All (${filtered.length}) Projects`}</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    className={`transition-transform duration-300 ${showAll ? "rotate-180" : ""}`}
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
 
